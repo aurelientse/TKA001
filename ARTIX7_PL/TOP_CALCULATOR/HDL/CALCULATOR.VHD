@@ -6,14 +6,15 @@ USE WORK.CALCULATOR_PKG.ALL;
 
 ENTITY CALCULATOR IS
 PORT ( 
-      clk    : in  std_logic;
-      rst_n  : in  std_logic;
-      start  : in  std_logic;
-      value_a: in  std_logic_vector(31 downto 0);
-      value_b: in  std_logic_vector(31 downto 0);
-      done   : out  std_logic;
-      ready  : out std_logic;
-      result : out std_logic_vector(31 downto 0)
+      clk    : IN  STD_LOGIC;
+      rst_n  : IN  STD_LOGIC;
+      start  : IN  STD_LOGIC;
+      value_a: IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+      value_b: IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+      opcode : IN  STD_LOGIC_VECTOR(2  DOWNTO 0);
+      done   : OUT STD_LOGIC;
+      ready  : OUT STD_LOGIC;
+      result : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
       );
 END CALCULATOR;
 
@@ -36,5 +37,7 @@ BEGIN
                      done   => done,
                      result => result 
                   );
+                  
+                  
 
 END RTL;

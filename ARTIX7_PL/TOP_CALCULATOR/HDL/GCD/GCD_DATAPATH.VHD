@@ -1,7 +1,9 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
-USE WORK.GCD_DATAPATH_PKG.ALL;
+
+LIBRARY WORK;
+USE WORK.COMMON_PKG.ALL;
 
 
 
@@ -55,39 +57,39 @@ BEGIN
  
  
  -- 
- X_MUX : GCD_MUX  GENERIC MAP ( DLEN => DLEN ) 
-                PORT MAP (
+ X_MUX : MUX  GENERIC MAP ( DLEN => DLEN ) 
+                 PORT MAP (
                                 a => xmy,
                                 b => xin,
                                 s => xsel,
                                 x => x1);
                                 
- Y_MUX : GCD_MUX  GENERIC MAP ( DLEN => DLEN) 
-                  PORT MAP ( 
+ Y_MUX : MUX  GENERIC MAP ( DLEN => DLEN) 
+                 PORT MAP ( 
                                 a => ymx,
                                 b => yin,
                                 s => ysel,
                                 x => y1);
 
  
- X_REG : GCD_REG GENERIC MAP (DLEN => DLEN)
-                 PORT MAP (
+ X_REG : REG GENERIC MAP (DLEN => DLEN)
+                PORT MAP (
                               clk   => clk,
                               rst_n => rst_n,
                               Load  => xload,
                               d     => x1,
                               q     => x );
                     
- Y_REG : GCD_REG GENERIC MAP ( DLEN => DLEN)
-                 PORT MAP (
+ Y_REG : REG GENERIC MAP ( DLEN => DLEN)
+                PORT MAP (
                               clk   => clk,
                               rst_n => rst_n,
                               Load  => yload,
                               d     => y1,
                               q     => y );
                              
-  R_REG : GCD_REG GENERIC MAP ( DLEN => DLEN)
-                  PORT MAP (
+  R_REG : REG GENERIC MAP ( DLEN => DLEN)
+                 PORT MAP (
                               clk   => clk,
                               rst_n => rst_n,
                               Load  => gload,
