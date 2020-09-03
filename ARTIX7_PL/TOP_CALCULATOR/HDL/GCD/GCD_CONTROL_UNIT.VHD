@@ -81,17 +81,17 @@ BEGIN
   xsel   <= '0';  ysel   <= '0';
   gload  <= '0';  donev  <= '0';  
   CASE (C_STATE) IS 
-                 WHEN INPUT   =>  xload  <= '1';    yload   <= '1';
-                                  xsel   <= '1';    ysel    <= '1';  
+        WHEN INPUT  =>  xload  <= '1';    yload   <= '1';
+                    xsel   <= '1';    ysel    <= '1';  
                                                                                              
-                 WHEN UP_XD   =>  xload  <= '1';  
+        WHEN UP_XD   =>  xload  <= '1';  
                  
-                 WHEN UP_YD   =>  yload  <= '1';    
+        WHEN UP_YD   =>  yload  <= '1';    
                   
-                 WHEN DONE    =>  gload  <= '1';   donev   <= '1';   
-                              
-                                    
-                 WHEN OTHERS  =>  NULL;                            
+        WHEN DONE    =>  gload  <= '1';   donev   <= '1'; 
+
+                                   
+        WHEN OTHERS  =>  NULL;                            
   END CASE;  
  END PROCESS ASYNC_FSM1;
  
