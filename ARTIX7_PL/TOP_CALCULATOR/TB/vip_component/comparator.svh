@@ -17,13 +17,12 @@ class comparator #(type RESPONSE = tr_response);
    // (1) Declare the mailbox mon2comp for messages of response_type
    //     Declare the mailbox ref2comp for messages of response_type
    //
-
    mailbox #(RESPONSE) mon2comp;
    mailbox #(RESPONSE) ref2comp;
+
    // ---------------------------------------------------------------------------
    // (2) Declare the variables ref_resp and rtl_resp of response_type
    //
-
    tr_response ref_resp;
    tr_response rtl_resp;
 
@@ -32,15 +31,13 @@ class comparator #(type RESPONSE = tr_response);
    //     - Pass the mailboxes mon2comp and ref2comp and assign it to the variables
    //     - Construct the objects ref_resp and rtl_resp
    //
-
-   function new ( mailbox#(RESPONSE) mon2comp,
-                  mailbox#(RESPONSE) ref2comp );
-                     
-            this.mon2comp = mon2comp;
-            this.ref2comp = ref2comp;
-            ref_resp      = new ();
-            rtl_resp      = new ();
+   function new ( mailbox#(RESPONSE) mon2comp, mailbox#(RESPONSE) ref2comp );
+      this.mon2comp = mon2comp;
+      this.ref2comp = ref2comp;
+      ref_resp      = new ();
+      rtl_resp      = new ();
    endfunction:new
+   
    // ---------------------------------------------------------------------------
    //                      ***  DO NOT EDIT BELOW THIS  ***
    // ---------------------------------------------------------------------------

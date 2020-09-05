@@ -3,9 +3,6 @@
 // Description :  Stimulus Generator Class for calculator testbench
 // ---------------------------------------------------------------------------
 
-//`include "../TB/tr_pkg/tr_pkg.svh"
-//`include "../TB/tr_pkg/tr_request_and_response.svh"
-
 import types_pkg::*;
  
 class stimgen#(type REQUEST = tr_request);
@@ -18,19 +15,17 @@ class stimgen#(type REQUEST = tr_request);
 
    // ---------------------------------------------------------------------------
    // (1) Declare the mailbox gen2drv for messages of request_type
-   //  
-     
+   //      
    mailbox#(REQUEST) gen2drv;
 
    // ---------------------------------------------------------------------------
    // (2) Declare the event variable tests_done to signal when all tests are done
    //     (see clock generator at testbench top-level)
-   //  
-
+   //
    event test_done;
 
    // ---------------------------------------------------------------------------
-   // (3) Declare the variable rtl_request of fpu_request_type
+   // (3) Declare the variable rtl_request of tr_request_type
    //
    tr_request rtl_req;
 
@@ -40,8 +35,7 @@ class stimgen#(type REQUEST = tr_request);
    //     - Pass the event tests_done
    //     - Assign all arguments to the class variables
    //     - Construct the object rtl_request
-   //   
- 
+   // 
    function new ( mailbox #(REQUEST) gen2drv, event test_done);
             this.gen2drv   = gen2drv; 
             this.test_done = test_done;  
@@ -53,8 +47,7 @@ class stimgen#(type REQUEST = tr_request);
    // (5) Implement the task run for several tests (see LAB TASKS 4 to 6)
    //
    //     LAB TASK 4: Simulate directed tests only
-   //     - Use the task run_directed_tests (implementation see below)
-          
+   //     - Use the task run_directed_tests (implementation see below)          
    task run;
         run_directed_tests;  
         run_random_tests_single_op (500, OP_GCD);             
@@ -71,16 +64,6 @@ class stimgen#(type REQUEST = tr_request);
    //     - Use the macro ERROR_OP (see script file run_fpu_error_ops.do) to select 
    //       these tests
    //      
-   
-   
-   // ---------------------------------------------------------------------------
-   // (6) LAB TASK 5: Complete the task randcase_operands 
-   //     - The task is used to select different constraints (see fpu_tr_pkg)
-   //     - Add a randcase with branches and appropriate weights for operand A
-   //     - Add a randcase with branches and appropriate weights for operand B  
-   //            
-   
-   
    
    // ---------------------------------------------------------------------------
    //                      ***  DO NOT EDIT BELOW THIS  ***
@@ -128,7 +111,7 @@ class stimgen#(type REQUEST = tr_request);
        
        
    // ---------------------------------------------------------------------------     
-   // task run_random_tests_single_op for a single operation (e.g. multiply) 
+   // task run_random_tests_single_op for a single operation (e.g. GCD example) 
    task run_random_tests_single_op(   input int max_count = 1,  
                                       input operation_t required_operation 
                                    );
@@ -137,17 +120,15 @@ class stimgen#(type REQUEST = tr_request);
       $display("Generate %0d random tests for a %s operation ...", 
                max_count, required_operation);       
       
-      repeat(max_count) begin   
-	 //rtl_request.constraint_mode(0);	     
-         //randcase_operands();              
-         //assert(rtl_request.randomize());
-         rtl_req.op = required_operation;            
-         rtl_req.a = $urandom_range(1000,500); //$shortrealtobits(5.0);
-         rtl_req.b = $urandom_range(500, 0);   //$shortrealtobits(2.0);
-         gen2drv.put(rtl_req.clone());         // put copy in mailbox to avoid overwriting          
-         test_count++;
+      repeat(max_count) begin
+
+      rtl_req.op = required_operation;            
+      rtl_req.a  = $urandom_range(1000,500); 
+      rtl_req.b  = $urandom_range(500, 0);   
+      gen2drv.put(rtl_req.clone()); // put copy in mailbox to avoid overwriting          
+      test_count++;
 `ifdef DISPLAY_MESSAGES_STIMGEN
-	 $display("\nRandom single operation test # %2d\n", test_count);  
+	 $display("\n Random single operation test # %2d\n", test_count);  
 `endif     
       end
       

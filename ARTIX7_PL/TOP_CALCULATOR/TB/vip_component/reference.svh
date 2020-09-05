@@ -14,8 +14,7 @@ import "DPI-C" function int cref_status();
 */
 
    
-class reference #( type REQUEST  = tr_request, 
-		        RESPONSE =  tr_response );
+class reference #( type REQUEST = tr_request, RESPONSE =  tr_response );
 
    
    // ---------------------------------------------------------------------------
@@ -26,8 +25,7 @@ class reference #( type REQUEST  = tr_request,
    // ---------------------------------------------------------------------------         
    // (1) Declare the mailbox mon2ref for messages of  request_type
    //     Declare the mailbox ref2comp for messages of response_type
-   //
-   
+   //   
     mailbox#( REQUEST ) mon2ref ;
     mailbox# (RESPONSE) ref2comp;
 
@@ -44,13 +42,11 @@ class reference #( type REQUEST  = tr_request,
    //     - Assign the arguments to the class variables
    //     - Construct the objects
    //
-
-   function new ( mailbox#( REQUEST ) mon2ref,
-                  mailbox#( RESPONSE) ref2comp);
-            this.mon2ref  = mon2ref;
-            this.ref2comp = ref2comp;
-            ref_req  = new();
-            ref_resp = new();
+   function new ( mailbox#( REQUEST ) mon2ref, mailbox#( RESPONSE) ref2comp);
+      this.mon2ref  = mon2ref;
+      this.ref2comp = ref2comp;
+      ref_req  = new();
+      ref_resp = new();
    endfunction:new
                   
    // ---------------------------------------------------------------------------
@@ -61,11 +57,11 @@ class reference #( type REQUEST  = tr_request,
    //     - Send ref_response via put method to the mailbox ref2comp
    //
    task run;
-        forever begin
-           mon2ref.get(ref_req);
-           ref_resp = ref_compute(ref_req); //TODO
-           ref2comp.put(ref_resp);           
-        end
+      forever begin
+         mon2ref.get(ref_req);
+         ref_resp = ref_compute(ref_req); //TODO
+         ref2comp.put(ref_resp);           
+      end
    endtask : run
 
 
@@ -84,7 +80,6 @@ class reference #( type REQUEST  = tr_request,
       ref_resp.a      = ref_req.a;
       ref_resp.b      = ref_req.b;
       ref_resp.op     = ref_req.op;
-     // ref_resp.round = ref_request.round;
       
       // Call C function cref_status to compute reference status output
       //ref_resp.status = cref_status();

@@ -20,9 +20,9 @@ class monitor #(type REQUEST  = tr_request,
    //     - Use the parameter DATA_WIDTH defined in the package tr_pkg
    //     - Note: A virtual interface is a reference to the actual interface
    //       and the bridge between the static pin world and object world
-   // 
+   //
+   virtual interface pins_if #(DATA_WIDTH) pins_vif;  
 
-   virtual interface pins_if #(DATA_WIDTH) pins_vif;   
    // ---------------------------------------------------------------------------
    // (2) Declare the mailboxes
    // 
@@ -31,7 +31,6 @@ class monitor #(type REQUEST  = tr_request,
    //
    //     - LAB TASK 5: mon2cov  for messages of response_type
    //
-
    mailbox #( REQUEST  ) mon2ref ;
    mailbox #( RESPONSE ) mon2comp;
    mailbox #( RESPONSE ) mon2cov ;
@@ -39,8 +38,7 @@ class monitor #(type REQUEST  = tr_request,
    // ---------------------------------------------------------------------------
    // (3) Declare the variable ref_req  of  request_type 
    //     Declare the variable rtl_resp of  response_type
-   //
-					 
+   //					 
    tr_request  ref_req;
    tr_response rtl_resp;
 
@@ -52,12 +50,13 @@ class monitor #(type REQUEST  = tr_request,
    //     - Construct all objects
    //
    function new (virtual interface pins_if #(DATA_WIDTH) pins_vif,
-                 mailbox #(REQUEST ) mon2ref, mailbox #(RESPONSE) mon2comp );
-            this.pins_vif  = pins_vif;
-            this.mon2ref   = mon2ref ;
-            this.mon2comp  = mon2comp;
-            ref_req        = new();
-            rtl_resp       = new();
+                 mailbox #(REQUEST ) mon2ref, 
+                 mailbox #(RESPONSE) mon2comp );
+      this.pins_vif  = pins_vif;
+      this.mon2ref   = mon2ref ;
+      this.mon2comp  = mon2comp;
+      ref_req        = new();
+      rtl_resp       = new();
    endfunction :new
 
    // ---------------------------------------------------------------------------
@@ -79,8 +78,8 @@ class monitor #(type REQUEST  = tr_request,
    //
    task run;   
       forever @(posedge pins_vif.clk) begin      
-          if(pins_vif.start) monitor_pass_ref_request;
-          if(pins_vif.ready) monitor_pass_rtl_response;
+         if(pins_vif.start) monitor_pass_ref_request;
+         if(pins_vif.ready) monitor_pass_rtl_response;
       end
    endtask:run
 

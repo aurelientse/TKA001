@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // File Name :    driver.svh
-// Description :  Driver Class for calculator testbench
+// Description :  Driver of stimulus for calculator testbench
 // ---------------------------------------------------------------------------
 
 import types_pkg::*;
@@ -20,14 +20,13 @@ class driver #(type REQUEST = tr_request);
    //     - Note: A virtual interface is a reference to the actual interface
    //       and the bridge between the static pin world and object world
    // 
-
    virtual interface pins_if #(DATA_WIDTH) vif_pins;
 
    // ---------------------------------------------------------------------------
    // (2) Declare the mailbox gen2drv for messages of fpu_request_type
    //
+   mailbox #(tr_request) gen2drv; 
 
-   mailbox #(tr_request) gen2drv;   
    // ---------------------------------------------------------------------------
    // (3) Declare the variable rtl_request of fpu_request_type
    //
@@ -40,15 +39,11 @@ class driver #(type REQUEST = tr_request);
    //      - Assign fpu_pins to the class variable
    //      - Assign gen2drv to the class variable
    //      - Construct the object rtl_request
-   //
-
-   
-   function new ( virtual pins_if #(DATA_WIDTH) vif_pins, 
-                  mailbox#(REQUEST) gen2drv
-                );
-            this.vif_pins     = vif_pins;
-            this.gen2drv      = gen2drv;
-            rtl_req           = new();
+   //   
+   function new ( virtual pins_if #(DATA_WIDTH) vif_pins, mailbox#(REQUEST) gen2drv);
+      this.vif_pins     = vif_pins;
+      this.gen2drv      = gen2drv;
+      rtl_req           = new();
    endfunction:new
                   
    // ---------------------------------------------------------------------------
