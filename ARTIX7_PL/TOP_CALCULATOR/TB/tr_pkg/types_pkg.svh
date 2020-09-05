@@ -1,6 +1,6 @@
 //------------------------------------------------------
 //------------------------------------------------------
-// FILENAME : gcd_tr_pkg.svh
+// FILENAME : tr_pkg.svh
 // PACKAGE FOR GCD TRANSACTION
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -8,13 +8,13 @@
 
 package types_pkg;
  
- //___________PARAMETERS__________//
+ //___PARAMETERS___//
  timeunit      1ns;
  timeprecision 1ps;
  parameter HALF_CLK_PERIOD = 5; 
  parameter int DATA_WIDTH  = 32;
 
- //______USER TYPE DEFINITION____//
+ //___USER TYPE DEFINITION__//
  typedef struct packed 
  {
    bit sign;
@@ -39,20 +39,20 @@ import types_pkg::*;
  
 class tr_request;
 
- //__________ATTRIBUTES_________________//
+ //___ATTRIBUTES____//
  rand operand_t   a;
  rand operand_t   b;
  rand operation_t op;
- //__________CONSTRAINTS________________//
+ //___CONSTRAINTS___//
  
 
 
- // ---------------------------------------------------------------------------
+ // --------------------------------------------------------------
  //                      ***  DO NOT EDIT ABOVE THIS  ***
- // ---------------------------------------------------------------------------
+ // --------------------------------------------------------------
 
 
- //__________CONSTRUCTOR________________//
+ //___CONSTRUCTOR___//
  function new ( 
                operand_t   a  ='{default:0},
                operand_t   b  ='{default:0},
@@ -63,7 +63,7 @@ class tr_request;
  endfunction:new 
   
 
- //___________METHODS_(copy  and clone)___//
+ //___METHODS_(copy  and clone)___//
 
  function void copy (input tr_request tmp);
    a  = tmp.a;  
@@ -84,23 +84,24 @@ endclass: tr_request
 
 
 
-// ---------------------------------------------------------------------------
-// CLASS TRANSACTION RESPONSE to extend class tr_request for response objects
-//----------------------------------------------------------------------------
+// -------------------------------------------------------------
+//          CLASS TRANSACTION RESPONSE                         -
+//      <<to extend class tr_request for response objects>>    -
+//--------------------------------------------------------------
 
 class tr_response extends tr_request;
 
- //__________ATTRIBUTES_________________//
+ //___ATTRIBUTES___//
  operand_t result;
 
- // ---------------------------------------------------------------------------
+ // ------------------------------------------------------------
  //                      ***  DO NOT EDIT BELOW THIS  ***
- // ---------------------------------------------------------------------------
+ // ------------------------------------------------------------
 
  
 
  function new (operand_t result ='{default:0});
-  super.new();  //[uses to call the tr_request class properties ]@Mandatory operation for a sub-class
+  super.new();  //[used to call the tr_request class properties]@Mandatory operation when extending class
   this.result =result;
  endfunction:new
 

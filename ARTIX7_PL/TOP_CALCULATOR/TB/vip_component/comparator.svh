@@ -33,9 +33,7 @@ class comparator #(type RESPONSE = tr_response);
    //     - Construct the objects ref_resp and rtl_resp
    //
 
-   function new ( mailbox#(RESPONSE) mon2comp,
-                  mailbox#(RESPONSE) ref2comp );
-                     
+   function new ( mailbox#(RESPONSE) mon2comp,  mailbox#(RESPONSE) ref2comp );
             this.mon2comp = mon2comp;
             this.ref2comp = ref2comp;
             ref_resp      = new ();
@@ -61,7 +59,8 @@ class comparator #(type RESPONSE = tr_response);
       forever begin   
          ref2comp.get(ref_resp);
          mon2comp.get(rtl_resp);
-
+         $display("testscenario passed/failed \n");
+         
          // ------------------------------------------------------------------
          // Assertion to compare the result bits and status bits
          // Status bits (see fpu_tr_pkg)

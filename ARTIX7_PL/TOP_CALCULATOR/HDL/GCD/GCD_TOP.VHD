@@ -8,9 +8,9 @@ USE WORK.GCD_PKG.ALL;
 ENTITY GCD_TOP IS
 GENERIC (DLEN :NATURAL:= 32);
 PORT ( 
-      clk    : in  std_logic;
-      rst_n  : in  std_logic;
-      start  : in  std_logic;
+      clk    : IN  std_logic;
+      rst_n  : IN  std_logic;
+      start  : IN  std_logic;
       xin    : IN  STD_LOGIC_VECTOR(DLEN-1 DOWNTO 0);
       yin    : IN  STD_LOGIC_VECTOR(DLEN-1 DOWNTO 0);
       ready  : OUT STD_LOGIC;

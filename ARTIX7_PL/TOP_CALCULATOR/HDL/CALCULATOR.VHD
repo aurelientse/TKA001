@@ -11,7 +11,6 @@ PORT (
       start  : IN  STD_LOGIC;
       value_a: IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
       value_b: IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
-      opcode : IN  STD_LOGIC_VECTOR(2  DOWNTO 0);
       done   : OUT STD_LOGIC;
       ready  : OUT STD_LOGIC;
       result : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)

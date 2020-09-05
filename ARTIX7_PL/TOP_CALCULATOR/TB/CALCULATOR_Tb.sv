@@ -2,30 +2,23 @@
 
 import types_pkg::*;
 import vip_component_pkg::*;
-
 `include "env.svh"
+
+
+
+
+
 module calculator_tb;
 
+  import "DPI-C" function void hello_from_cpp();
+  
   //variable declaration
-  bit   clk =1'b0 ;
-  event test_done ;
-  
-  /*bit rst_n =1'b0;
-  bit ready ;
-  bit start =1'b0;
-  bit [31:0] gcd_a =0;
-  bit [31:0] gcd_b =0;
-  wire [31:0] gcd_r;
-  wire done;  */
-  
-  //Clock generation process
-  //always clk = #(HALF_CLK_PERIOD) ~ clk;
+  bit    clk   = 1'b0;
+  event test_done ;  
   
   
   // ---------------------------------------------------------------------------
    // Clock generator with event tests_done
-
-
    initial begin
       fork     
           wait(test_done.triggered);
@@ -58,6 +51,7 @@ module calculator_tb;
    initial begin 
      env_i = new (pins_vif, test_done);
      env_i.run_all;
+     hello_from_cpp();
    end 
    // ---------------------------------------------------------------------------
    //                      ***  DO NOT EDIT BELOW THIS  ***
@@ -68,18 +62,15 @@ module calculator_tb;
   
   //VHDL MOODULE
   calculator calculator_inst0 ( .clk(pins_vif.clk),
-                                .rst_n(rst_n),
+                                .rst_n(pins_vif.rst_n),
                                 .start(pins_vif.start),
                                 .value_a(pins_vif.opa),
                                 .value_b(pins_vif.opb),
-                                .opcode(pins_vif.op),
                                 .done(pins_vif.done),
                                 .ready(pins_vif.ready),
                                 .result(pins_vif.result)     
                             );
-  //VERILOG MODULE         
-  //test       calculator_inst1 ( .clk(clk) );
-  
+ 
 endmodule :calculator_tb; 
 
 

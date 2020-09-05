@@ -27,7 +27,7 @@ interface pins_if #(int DATA_WIDTH) (input logic clk);
    // 110 = invalid operation
    // 111 = invalid operation
    
-   logic [2:0] op;
+   //logic [2:0] op;
    
    // ---------------------------------------------------------------------------
    // Round Modes
@@ -43,10 +43,11 @@ interface pins_if #(int DATA_WIDTH) (input logic clk);
    // ---------------------------------------------------------------------------
    // Control and Status (Exception) Bits
    // ---------------------------------------------------------------------------
+   logic rst_n;            // reset active low
+   logic start;            // start the operation
+   logic ready;	    // operation finished
+   logic done ;            // opeation done 
    
-   logic start;		    // start the operation
-   logic ready;		    // operation finished
-   logic done ;             // opeation done 
  
    //logic inexact;       // inexact
    //logic overflow;      // overflow

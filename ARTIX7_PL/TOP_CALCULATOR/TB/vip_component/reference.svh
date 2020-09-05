@@ -7,12 +7,6 @@ import types_pkg::*;
 
 
 
-/*import "DPI-C" function int cref_result(input int opa, input int opb, 
-                                        input int operation, input int round);
-   
-import "DPI-C" function int cref_status();
-*/
-
    
 class reference #( type REQUEST  = tr_request, 
 		        RESPONSE =  tr_response );
@@ -32,8 +26,8 @@ class reference #( type REQUEST  = tr_request,
     mailbox# (RESPONSE) ref2comp;
 
    // ---------------------------------------------------------------------------
-   // (2) Declare the variable ref_request  of request_type
-   //     Declare the variable ref_response of response_type
+   // (2) Declare the variable ref_req  of request_type
+   //     Declare the variable ref_resp of response_type
    //    
    tr_request  ref_req ;
    tr_response ref_resp;
@@ -45,8 +39,7 @@ class reference #( type REQUEST  = tr_request,
    //     - Construct the objects
    //
 
-   function new ( mailbox#( REQUEST ) mon2ref,
-                  mailbox#( RESPONSE) ref2comp);
+   function new ( mailbox#( REQUEST ) mon2ref, mailbox#( RESPONSE) ref2comp);
             this.mon2ref  = mon2ref;
             this.ref2comp = ref2comp;
             ref_req  = new();
@@ -84,8 +77,7 @@ class reference #( type REQUEST  = tr_request,
       ref_resp.a      = ref_req.a;
       ref_resp.b      = ref_req.b;
       ref_resp.op     = ref_req.op;
-     // ref_resp.round = ref_request.round;
-      
+            
       // Call C function cref_status to compute reference status output
       //ref_resp.status = cref_status();
 

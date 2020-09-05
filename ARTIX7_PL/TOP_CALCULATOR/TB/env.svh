@@ -75,15 +75,15 @@ class env #(type REQUEST  = tr_request,
    //       Pass tests_done to the constructor of stimgen
    //
 
-   function new ( virtual interface pins_if #(DATA_WIDTH) pins_vif,
+   function new ( virtual interface pins_if #(DATA_WIDTH) vif,
                   event test_done );
             gen2drv        = new(1);
             mon2ref        = new(1);
             mon2comp       = new(1);
             ref2comp       = new(1);
             gen_i          = new(gen2drv , test_done);
-            drv_i          = new(pins_vif, gen2drv );
-            mon_i          = new(pins_vif, mon2ref, mon2comp);
+            drv_i          = new(vif, gen2drv );
+            mon_i          = new(vif, mon2ref, mon2comp);
             ref_i          = new(mon2ref , ref2comp);
             com_i          = new(mon2comp, ref2comp);            
    endfunction:new

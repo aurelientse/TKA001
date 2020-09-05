@@ -63,7 +63,7 @@ vlog -work work -sv -stats=none  ../TB/CALCULATOR_Tb.sv
 # Macro DISPLAY_MESSAGES_DRIVER        - activates messages from driver during simulation
 #-------------------------------------------------------------------------------------------
 
-vlog +define+DISPLAY_MESSAGES_STIMGEN +define+DISPLAY_MESSAGES_DRIVER -f calculator_filelist.f
+vlog +define+DISPLAY_MESSAGES_STIMGEN +define+DISPLAY_MESSAGES_DRIVER +define+DISPLAY_MESSAGES_MONITOR -f calculator_filelist.f
 
 
 #+incdir+/home/aurelientse/Documents/UVM/UVM_HOME_2017_1.0/src +define+UVM_CMDLINE_NO_DPI +define+UVM_REGEX_NO_DPI  +define+UVM_NO_DPI
