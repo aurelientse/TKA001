@@ -6,18 +6,18 @@ USE IEEE.NUMERIC_STD.ALL;
 
 ENTITY GCD_CONTROL_UNIT IS
 PORT ( 
-      clk    : in  STD_LOGIC;
-      rst_n  : in  STD_LOGIC;
-      start  : in  STD_LOGIC;
-      eq     : in  std_logic;
-      lt     : in  std_logic;
-      xsel   : out std_logic;
-      xload  : out std_logic;
-      ysel   : out std_logic;
-      yload  : out std_logic;
-      gload  : out std_logic;
-      donev  : out std_logic;
-      ready  : out std_logic
+      clk    : IN  STD_LOGIC;
+      rst_n  : IN  STD_LOGIC;
+      start  : IN  STD_LOGIC;
+      eq     : IN  STD_LOGIC;
+      lt     : IN  STD_LOGIC;
+      xsel   : OUT STD_LOGIC;
+      xload  : OUT STD_LOGIC;
+      ysel   : OUT STD_LOGIC;
+      yload  : OUT STD_LOGIC;
+      gload  : OUT STD_LOGIC;
+      donev  : OUT STD_LOGIC;
+      ready  : OUT STD_LOGIC
       );
 END GCD_CONTROL_UNIT;
 
@@ -81,17 +81,17 @@ BEGIN
   xsel   <= '0';  ysel   <= '0';
   gload  <= '0';  donev  <= '0';  
   CASE (C_STATE) IS 
-                 WHEN INPUT   =>  xload  <= '1';    yload   <= '1';
-                                  xsel   <= '1';    ysel    <= '1';  
+        WHEN INPUT  =>  xload  <= '1';    yload   <= '1';
+                    xsel   <= '1';    ysel    <= '1';  
                                                                                              
-                 WHEN UP_XD   =>  xload  <= '1';  
+        WHEN UP_XD   =>  xload  <= '1';  
                  
-                 WHEN UP_YD   =>  yload  <= '1';    
+        WHEN UP_YD   =>  yload  <= '1';    
                   
-                 WHEN DONE    =>  gload  <= '1';   donev   <= '1';   
-                              
-                                    
-                 WHEN OTHERS  =>  NULL;                            
+        WHEN DONE    =>  gload  <= '1';   donev   <= '1'; 
+
+                                   
+        WHEN OTHERS  =>  NULL;                            
   END CASE;  
  END PROCESS ASYNC_FSM1;
  

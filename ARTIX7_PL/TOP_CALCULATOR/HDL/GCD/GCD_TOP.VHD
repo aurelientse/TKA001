@@ -6,16 +6,16 @@ USE WORK.GCD_PKG.ALL;
 
 
 ENTITY GCD_TOP IS
-GENERIC (DLEN :NATURAL:= 32);
+GENERIC (SIZE :NATURAL:= 16);
 PORT ( 
       clk    : IN  std_logic;
       rst_n  : IN  std_logic;
       start  : IN  std_logic;
-      xin    : IN  STD_LOGIC_VECTOR(DLEN-1 DOWNTO 0);
-      yin    : IN  STD_LOGIC_VECTOR(DLEN-1 DOWNTO 0);
+      xin    : IN  STD_LOGIC_VECTOR(SIZE-1 DOWNTO 0);
+      yin    : IN  STD_LOGIC_VECTOR(SIZE-1 DOWNTO 0);
       ready  : OUT STD_LOGIC;
       done   : OUT STD_LOGIC;
-      result : OUT STD_LOGIC_VECTOR (DLEN-1 DOWNTO 0)
+      result : OUT STD_LOGIC_VECTOR (SIZE-1 DOWNTO 0)
       );
 END GCD_TOP;
 

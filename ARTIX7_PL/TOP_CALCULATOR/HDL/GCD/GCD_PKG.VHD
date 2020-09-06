@@ -10,36 +10,36 @@ PACKAGE GCD_PKG IS
 
 COMPONENT GCD_CONTROL_UNIT IS
 PORT ( 
-      clk    : in  std_logic;
-      rst_n  : in  std_logic;
-      start  : in  std_logic;
-      eq     : in  std_logic;
-      lt     : in  std_logic;
-      xsel   : out std_logic;
-      ysel   : out std_logic;
-      xload  : out std_logic;
-      yload  : out std_logic;
-      gload  : out std_logic;
-      donev  : out std_logic;
-      ready  : out std_logic
+      clk    : IN  STD_LOGIC;
+      rst_n  : IN  STD_LOGIC;
+      start  : IN  STD_LOGIC;
+      eq     : IN  STD_LOGIC;
+      lt     : IN  STD_LOGIC;
+      xsel   : OUT STD_LOGIC;
+      ysel   : OUT STD_LOGIC;
+      xload  : OUT STD_LOGIC;
+      yload  : OUT STD_LOGIC;
+      gload  : OUT STD_LOGIC;
+      donev  : OUT STD_LOGIC;
+      ready  : OUT STD_LOGIC
       );
 END COMPONENT GCD_CONTROL_UNIT;
 
 
 COMPONENT GCD_DATAPATH IS
 PORT ( 
-      clk    : in  std_logic;
-      rst_n  : in  std_logic;
-      xsel   : in  std_logic;
-      ysel   : in  std_logic;
-      xload  : in  std_logic;
-      yload  : in  std_logic;
-      gload  : in  std_logic;
-      xin    : in  std_logic_vector(31 downto 0);
-      yin    : in  std_logic_vector(31 downto 0);
-      eq     : out std_logic;
-      lt     : out std_logic;
-      result : out std_logic_vector(31 downto 0)
+      clk    : IN  STD_LOGIC;
+      rst_n  : IN  STD_LOGIC;
+      xsel   : IN  STD_LOGIC;
+      ysel   : IN  STD_LOGIC;
+      xload  : IN  STD_LOGIC;
+      yload  : IN  STD_LOGIC;
+      gload  : IN  STD_LOGIC;
+      xin    : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+      yin    : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+      eq     : OUT STD_LOGIC;
+      lt     : OUT STD_LOGIC;
+      result : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
       );
 END COMPONENT GCD_DATAPATH;
 

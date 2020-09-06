@@ -20,9 +20,9 @@ class monitor #(type REQUEST  = tr_request,
    //     - Use the parameter DATA_WIDTH defined in the package tr_pkg
    //     - Note: A virtual interface is a reference to the actual interface
    //       and the bridge between the static pin world and object world
-   // 
-
+   //
    virtual interface pins_if #(DATA_WIDTH) vif;   
+
    // ---------------------------------------------------------------------------
    // (2) Declare the mailboxes
    // 
@@ -31,7 +31,6 @@ class monitor #(type REQUEST  = tr_request,
    //
    //     - LAB TASK 5: mon2cov  for messages of response_type
    //
-
    mailbox #( REQUEST  ) mon2ref ;
    mailbox #( RESPONSE ) mon2comp;
    mailbox #( RESPONSE ) mon2cov ;
@@ -39,8 +38,7 @@ class monitor #(type REQUEST  = tr_request,
    // ---------------------------------------------------------------------------
    // (3) Declare the variable ref_req  of  request_type 
    //     Declare the variable rtl_resp of  response_type
-   //
-					 
+   //					 
    tr_request  ref_req;
    tr_response rtl_resp;
 
@@ -51,13 +49,12 @@ class monitor #(type REQUEST  = tr_request,
    //     - Assign all arguments to the class variables
    //     - Construct all objects
    //
-   function new (virtual interface pins_if #(DATA_WIDTH) vif,
-                 mailbox #(REQUEST ) mon2ref, mailbox #(RESPONSE) mon2comp );
-            this.vif      = vif;
-            this.mon2ref  = mon2ref ;
-            this.mon2comp = mon2comp;
-            ref_req       = new();
-            rtl_resp      = new();
+   function new (virtual interface pins_if #(DATA_WIDTH) vif, mailbox #(REQUEST) mon2ref, mailbox #(RESPONSE) mon2comp );
+      this.vif       = vif;
+      this.mon2ref   = mon2ref ;
+      this.mon2comp  = mon2comp;
+      ref_req        = new();
+      rtl_resp       = new();
    endfunction :new
 
    // ---------------------------------------------------------------------------
@@ -79,8 +76,8 @@ class monitor #(type REQUEST  = tr_request,
    //
    task run;   
       forever @(posedge vif.clk) begin      
-          if(vif.start==1'b1&& vif.ready==1'b1) monitor_pass_ref_request;
-          if(vif.done ==1'b1) monitor_pass_rtl_response;
+         if(vif.start ==1'b1) monitor_pass_ref_request;
+         if(vif.done  ==1'b1) monitor_pass_rtl_response;
       end
    endtask:run
 
@@ -88,19 +85,19 @@ class monitor #(type REQUEST  = tr_request,
    //  
    task monitor_pass_ref_request;
 `ifdef DISPLAY_MESSAGES_MONITOR
-      $display("\n Monitor collect the rtl request #  \n");  
+      $display("\n Monitor:: collects the rtl request @ %0t \n", $time);  
 `endif
       ref_req.a  = vif.opa;
       ref_req.b  = vif.opb;
-      //ref_req.op = operation_t'(pins_vif.op);  // [convert a user type into binary code::casting]
-      mon2ref.put(ref_req);                    // [Send ref_request to the mailbox mon2ref]
+      ref_req.op = operation_t'(vif.op);  // [convert a user type into binary code::casting]
+      mon2ref.put(ref_req);               // [Send ref_request to the mailbox mon2ref]
    endtask :monitor_pass_ref_request   
    
    // ---------------------------------------------------------------------------
    //     
    task monitor_pass_rtl_response;
 `ifdef DISPLAY_MESSAGES_MONITOR
-      $display("\n Monitor collect the rtl response # \n");  
+      $display("\n Monitor:: collects the rtl response @ %0t \n", $time);  
 `endif
       // Collect rtl_response
       rtl_resp.a      = ref_req.a;

@@ -11,19 +11,22 @@ package types_pkg;
  //___PARAMETERS___//
  timeunit      1ns;
  timeprecision 1ps;
- parameter HALF_CLK_PERIOD = 5; 
- parameter int DATA_WIDTH  = 32;
+ parameter HALF_CLK_PERIOD = 3.9; 
+ parameter int DATA_WIDTH  = 16;
 
  //___USER TYPE DEFINITION__//
  typedef struct packed 
  {
    bit sign;
-   bit [30:0] dat; 
+   bit [DATA_WIDTH-2:0] dat; 
  } operand_t;
  
  typedef enum
  {
    OP_NOP,
+   OP_ADD,
+   OP_SUB,
+   OP_MUL,
    OP_DIV,
    OP_GCD,
    OP_SQR
@@ -92,7 +95,7 @@ endclass: tr_request
 class tr_response extends tr_request;
 
  //___ATTRIBUTES___//
- operand_t result;
+ bit [2*DATA_WIDTH-1:0] result;
 
  // ------------------------------------------------------------
  //                      ***  DO NOT EDIT BELOW THIS  ***

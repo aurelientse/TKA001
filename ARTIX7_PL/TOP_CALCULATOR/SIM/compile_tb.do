@@ -20,7 +20,7 @@ vcom -check_synthesis -work work -93 ../HDL/GCD/GCD_CONTROL_UNIT.VHD
 vcom -check_synthesis -work work -93 ../HDL/GCD/GCD_PKG.VHD  
 vcom -check_synthesis -work work -93 ../HDL/GCD/GCD_TOP.VHD 
 ##COMPILE
-
+vcom -check_synthesis -work work -93 ../HDL/ALU/SIMPLE_ALU.VHD 
 
 
 

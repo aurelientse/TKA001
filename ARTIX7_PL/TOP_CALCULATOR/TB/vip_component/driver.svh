@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // File Name :    driver.svh
-// Description :  Driver Class for calculator testbench
+// Description :  Driver of stimulus for calculator testbench
 // ---------------------------------------------------------------------------
 
 import types_pkg::*;
@@ -20,13 +20,11 @@ class driver #(type REQUEST = tr_request);
    //     - Note: A virtual interface is a reference to the actual interface
    //       and the bridge between the static pin world and object world
    // 
-
    virtual interface pins_if #(DATA_WIDTH) vif;
 
    // ---------------------------------------------------------------------------
    // (2) Declare the mailbox gen2drv for messages of request_type
    //
-
    mailbox #(REQUEST) gen2drv;   
    // ---------------------------------------------------------------------------
    // (3) Declare the variable rtl_req of request_type
@@ -40,11 +38,10 @@ class driver #(type REQUEST = tr_request);
    //      - Assign fpu_pins to the class variable
    //      - Assign gen2drv to the class variable
    //      - Construct the object rtl_request
-   //
    function new ( virtual pins_if #(DATA_WIDTH) vif, mailbox#(REQUEST) gen2drv);
-            this.vif     = vif;
-            this.gen2drv = gen2drv;
-            rtl_req      = new();
+      this.vif     = vif;
+      this.gen2drv = gen2drv;
+      rtl_req      = new();
    endfunction:new
                   
    // ---------------------------------------------------------------------------
@@ -68,21 +65,22 @@ class driver #(type REQUEST = tr_request);
          vif.rst_n  <= 1'b1;
          vif.opa    <= rtl_req.a;
          vif.opb    <= rtl_req.b;
+         vif.op     <= rtl_req.op;
          @(posedge vif.clk);
          vif.start  <= 1'b1;
 `ifdef DISPLAY_MESSAGES_DRIVER 
-         $display("Driver sends a request to DUT @ %0t", $time); 
-         $display("Number of transactions in gen2drv is %0d\n", gen2drv.num); 
+         $display("Driver::sends a request to DUT ...@ %0t", $time); 
+         $display("Driver::Number of transactions in gen2drv is %0d\n", gen2drv.num); 
 `endif      
          @(posedge vif.clk);
          vif.start  <= 0;  
-`ifdef DISPLAY_MESSAGES_DRIVER 
-         $display("... and gets a ready from DUT @ %0t", $time);
-         wait(vif.ready==1'b1); 
+`ifdef DISPLAY_MESSAGES_DRIVER         
+         wait(vif.done==1'b1);
+         $display("Driver:: ...gets a done from DUT @ %0t", $time); 
 `endif 
          gen2drv.get(rtl_req);         // remove transaction from mailbox
 `ifdef DISPLAY_MESSAGES_DRIVER
-         $display("Number of transactions in gen2drv is %0d\n", gen2drv.num);
+         $display("Driver:: Number of transactions in gen2drv is %0d\n", gen2drv.num);
 `endif
          wait(!vif.ready); 
          @(posedge vif.clk);        
