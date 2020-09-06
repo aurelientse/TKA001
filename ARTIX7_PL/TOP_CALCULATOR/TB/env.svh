@@ -100,6 +100,7 @@ class env #(type REQUEST  = tr_request,
             mon_i.run;
             ref_i.run;
             com_i.run;
+            com_i.report_simu;
         join          
    endtask :run_all
 

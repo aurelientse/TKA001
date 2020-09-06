@@ -111,16 +111,24 @@ class tr_response extends tr_request;
 
  // clone method
  function tr_response clone();
-    tr_response tmp = new();
-    tmp.copy(this);
-    return tmp;
+  tr_response tmp = new();
+  tmp.copy(this);
+  return tmp;
  endfunction      
    
  // copy method
  function void copy (input tr_response tmp);
-    super.copy(tmp);
-    result = tmp.result;
+  super.copy(tmp);
+  result = tmp.result;
  endfunction
+
+ // print method
+ function void to_string (void);
+  //$sformatf("operand   a  : h%2x", a     );
+  //$sformatf("operand   b  : h%2x", b     );
+  //$sformatf("operation op : h%2x", op    );
+  $sformatf("result    r  : h%2x", result);
+ endfunction:to_string;
  
 endclass :tr_response
 
