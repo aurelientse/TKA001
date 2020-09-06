@@ -39,7 +39,7 @@ class comparator #(type RESPONSE = tr_response);
       ref_resp      = new ();
       rtl_resp      = new ();
       match         = 0;
-      mismatch      = 0:
+      mismatch      = 0;
    endfunction:new
    
    // ---------------------------------------------------------------------------
@@ -71,23 +71,23 @@ class comparator #(type RESPONSE = tr_response);
          else 
             begin 
                mismatch ++;
-               $error("Comparator::CompareTypeMismatch!
-                       Expected %s and Actual %s", 
-                       ref_resp.to_string , rtl_resp.to_string
-                     );
+               $error("Comparator::CompareTypeMismatch! \n Expected %s and Actual %s \n", 
+                       ref_resp.to_string() , rtl_resp.to_string() );
+               $warning("Comparator::test scenatio failed! \n");
             end
+      end 
 
    endtask
-   // ---------------------------------------------------------------------------
-   function void report_simulation ();
-      $display("# scoreboard report =============== #");
+
+   // task report to report the number of mismatch from DUT and C reference
+   //
+   function void report;
+      $display("#========= scoreboard report =============== #");
       $display("# Total stimgen: %0d", match + mismatch );
       $display("# match        : %0d", match);
-      $display("# mismatch     : %0d");
-      $display("# reference channel: %9s", ref2comp.is_empty);
-      $display("# monitor   channel: %9s", mon2comp.is_empty);
-      $display("# ================================= #");
-   endfunction : report_simulation
+      $display("# mismatch     : %0d", mismatch);
+      $display("# ========================================== #");
+   endfunction : report
    
    
 endclass:comparator // class_comparator

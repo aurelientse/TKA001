@@ -51,7 +51,14 @@ module calculator_tb;
    initial begin 
      env_i = new (vif, test_done);
      env_i.run_all;
-     hello_from_cpp();
+     hello_from_cpp();  
+   end 
+
+   initial begin
+      forever begin
+      @test_done;
+      env_i.report;           
+      end      
    end 
    // ---------------------------------------------------------------------------
    //                      ***  DO NOT EDIT BELOW THIS  ***

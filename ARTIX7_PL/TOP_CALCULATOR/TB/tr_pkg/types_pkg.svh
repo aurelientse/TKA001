@@ -123,11 +123,11 @@ class tr_response extends tr_request;
  endfunction
 
  // print method
- function void to_string (void);
+ function string to_string ();
   //$sformatf("operand   a  : h%2x", a     );
   //$sformatf("operand   b  : h%2x", b     );
   //$sformatf("operation op : h%2x", op    );
-  $sformatf("result    r  : h%2x", result);
+  $sformat(to_string, "result    r  :   %h", result);
  endfunction:to_string;
  
 endclass :tr_response

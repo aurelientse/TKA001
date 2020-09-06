@@ -6,11 +6,11 @@ add wave -noupdate /calculator_tb/vif/start
 add wave -noupdate -radix decimal /calculator_tb/vif/opa
 add wave -noupdate -radix decimal /calculator_tb/vif/opb
 add wave -noupdate -radix symbolic /calculator_tb/vif/op
-add wave -noupdate -radix hexadecimal /calculator_tb/vif/result
+add wave -noupdate -radix decimal /calculator_tb/vif/result
 add wave -noupdate /calculator_tb/vif/ready
 add wave -noupdate /calculator_tb/vif/done
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {47 ps} 0}
+WaveRestoreCursors {{Cursor 1} {36 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 250
 configure wave -valuecolwidth 100
@@ -26,4 +26,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {130 ps}
+WaveRestoreZoom {0 ps} {260 ps}

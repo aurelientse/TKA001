@@ -99,11 +99,13 @@ class env #(type REQUEST  = tr_request,
             drv_i.run;
             mon_i.run;
             ref_i.run;
-            com_i.run;
-            com_i.report_simu;
+            com_i.run;            
         join          
    endtask :run_all
 
+   task report;
+        com_i.report;
+   endtask :report
    // ---------------------------------------------------------------------------
    //                      ***  DO NOT EDIT BELOW THIS  ***
    // ---------------------------------------------------------------------------
